@@ -31,7 +31,7 @@ class User < ApplicationRecord
 
   # Users who have requested to be friends
   def friend_requests
-    inverse_friendships.map{|friendship| friendship.requestor if friendship.status == 'pending'}.compact
+    inverse_friendships.map { |friendship| friendship.requestor if friendship.status == 'pending' }.compact
   end
 
   def friend?(user)
