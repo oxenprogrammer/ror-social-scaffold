@@ -20,12 +20,14 @@ class FriendshipsController < ApplicationController
   def update
     @friend_request = Friendship.find_by(requestee_id: current_user.id, requestor_id: params[:id])
     @friend_request.confirmed! if @friend_request.pending?
+    flash[:notice] = 'Friend request accepted'
     redirect_to users_path
   end
 
   def destroy
     @friend_request = Friendship.find_by(requestee_id: current_user.id, requestor_id: params[:id])
     @friend_request.rejected! if @friend_request.pending?
+    flash[:notice] = 'Friend request rejected'
     redirect_to users_path
   end
 

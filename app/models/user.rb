@@ -14,24 +14,24 @@ class User < ApplicationRecord
   has_many :inverse_friendships, class_name: 'Friendship', foreign_key: :requestee_id, dependent: :destroy
 
   def friends
-    friends_array = friendships.map { |friendship| friendship.friend if friendship.status == 'accepted' }
-    friends_array + inverse_friendships.map { |friendship| friendship.user if friendship.status == 'accepted' }
+    friends_array = friendships.map { |friendship| friendship.friend if friendship.accepted }
+    friends_array + inverse_friendships.map { |friendship| friendship.user if friendship.accepted }
     friends_array.compact
   end
 
   # Users who have yet to confirm friend requests
   def pending_friends
-    friendships.map { |friendship| friendship.requestee if friendship.status == 'pending' }.compact
+    friendships.map { |friendship| friendship.requestee if friendship.pending }.compact
   end
 
   # Users who have rejected the friendship
   def rejected_friend
-    friendships.map { |friendship| friendship.requestee if friendship.status == 'rejected' }.compact
+    friendships.map { |friendship| friendship.requestee if friendship.rejected }.compact
   end
 
   # Users who have requested to be friends
   def friend_requests
-    inverse_friendships.map { |friendship| friendship.requestor if friendship.status == 'pending' }.compact
+    inverse_friendships.map { |friendship| friendship.requestor if friendship.pending }.compact
   end
 
   def friend?(user)
