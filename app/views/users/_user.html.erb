@@ -4,4 +4,5 @@
     <%= link_to 'See Profile',  user_path(user), class: 'profile-link' %>
   </span>
   <%= friendship_button(current_user, user) %>
+  <%= friendship_update_button(current_user, user) %>
 </li>
