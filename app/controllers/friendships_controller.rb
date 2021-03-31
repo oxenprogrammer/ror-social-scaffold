@@ -1,10 +1,9 @@
 class FriendshipsController < ApplicationController
   before_action :authenticate_user!
-  before_action :check_friendship
 
   def create
     if @friendship.nil?
-      @friend_request = Friendship.new(requestor_id: current_user.id, requestee_id: params[:id])
+      @friend_request = Friendship.new(requestor_id: current_user.id, requestee_id: friendship_params[:requestee_id])
       if @friend_request.save
         flash[:notice] = 'Friend request successfully sent'
       else
@@ -31,11 +30,9 @@ class FriendshipsController < ApplicationController
     redirect_to users_path
   end
 
-  def check_friendship
-    @friendship = Friendship.find_by(requestor_id: current_user.id,
-                                     requestee_id: params[:id]) || Friendship.find_by(requestor_id: params[:id],
-                                                                                      requestee_id: current_user.id)
+  def friendship_params
+    params.require(:friendship).permit(:requestee_id)
   end
 
-  private :check_friendship
+  private :friendship_params
 end
