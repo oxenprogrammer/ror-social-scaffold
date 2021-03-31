@@ -1,8 +1,7 @@
 module UserHelper
+  # rubocop:disable Style/GuardClause
   def friend_button(current_user, user)
-    if friend?(current_user, user)
-      'You are friends'
-    end
+    'You are friends' if friend?(current_user, user)
   end
 
   def friendship_button(current_user, user)
@@ -36,4 +35,5 @@ module UserHelper
                  Friendship.find_by(requestor_id: user.id, requestee_id: current_user.id, status: 'accepted')
     true unless friendship.nil?
   end
+  # rubocop:enable Style/GuardClause
 end
