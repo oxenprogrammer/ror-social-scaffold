@@ -14,6 +14,7 @@ Rails.application.routes.draw do
 
   # update friendship request
   patch '/users/:user_id/friendships/:id', to: 'friendships#update', as: 'update_friendship'
+  delete '/users/:user_id/friendships/:id', to: 'friendships#destroy', as: 'delete_friendship'
 
   # For details on the DSL available within this file, see http://guides.rubyonrails.org/routing.html
 end

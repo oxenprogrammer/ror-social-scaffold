@@ -15,11 +15,11 @@ module UserHelper
     pending_request = Friendship.find_by(requestor_id: user.id, requestee_id: current_user.id, status: 'pending')
     if current_user != user and pending_request
       concat button_to 'Accept', update_friendship_path(current_user[:id], pending_request[:id]),
-                       params: { friendship: { id: pending_request[:id], status: 'accepted' } },
+                       params: { friendship: { id: pending_request[:id] } },
                        method: :patch
-      button_to 'Reject', update_friendship_path(current_user[:id], pending_request[:id]),
-                params: { friendship: { id: pending_request[:id], status: 'rejected' } },
-                method: :patch
+      button_to 'Reject', delete_friendship_path(current_user[:id], pending_request[:id]),
+                params: { friendship: { id: pending_request[:id] } },
+                method: :delete
     end
   end
 end

@@ -17,14 +17,22 @@ class FriendshipsController < ApplicationController
   end
 
   def update
-    @friend_request = Friendship.find_by(requestee_id: current_user.id, requestor_id: params[:id])
-    @friend_request.confirmed! if @friend_request.pending
-    flash[:notice] = 'Friend request accepted'
-    redirect_to users_path
+    @friend_request = Friendship.find_by(id: friendship_update_params[:id])
+    if @friend_request[:status] == 'pending'
+      @friend_request[:status] = 'accepted'
+      if @friend_request.save
+        flash[:notice] = 'Friend request accepted'
+        redirect_to users_path
+      else
+        flash[:alert] = 'Failed to accept friend'
+      end
+    else
+      flash[:alert] = 'Something went wrong'
+    end
   end
 
   def destroy
-    @friend_request = Friendship.find_by(requestee_id: current_user.id, requestor_id: params[:id])
+    @friend_request = Friendship.find_by(id: friendship_update_params[:id])
     @friend_request.rejected! if @friend_request.pending
     flash[:notice] = 'Friend request rejected'
     redirect_to users_path
@@ -34,5 +42,9 @@ class FriendshipsController < ApplicationController
     params.require(:friendship).permit(:requestee_id)
   end
 
-  private :friendship_params
+  def friendship_update_params
+    params.require(:friendship).permit(:id)
+  end
+
+  private :friendship_params, :friendship_update_params
 end
