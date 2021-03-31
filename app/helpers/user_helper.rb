@@ -22,10 +22,4 @@ module UserHelper
                 method: :patch
     end
   end
-
-  def pending
-    where(status: 'pending')
-  end
-
-  private :pending
 end
