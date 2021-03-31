@@ -1,4 +1,10 @@
 module UserHelper
+  def friend_button(current_user, user)
+    if friend?(current_user, user)
+      'You are friends'
+    end
+  end
+
   def friendship_button(current_user, user)
     friendship = Friendship.find_by(requestor_id: current_user.id,
                                     requestee_id: user.id) || Friendship.find_by(requestor_id: user.id,
@@ -21,5 +27,13 @@ module UserHelper
                 params: { friendship: { id: pending_request[:id] } },
                 method: :delete
     end
+  end
+
+  private
+
+  def friend?(current_user, user)
+    friendship = Friendship.find_by(requestor_id: current_user.id, requestee_id: user.id, status: 'accepted') ||
+                 Friendship.find_by(requestor_id: user.id, requestee_id: current_user.id, status: 'accepted')
+    true unless friendship.nil?
   end
 end
