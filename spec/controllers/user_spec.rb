@@ -10,7 +10,6 @@ RSpec.describe UsersController, type: :controller do
   let(:user) { FactoryGirl.create(:user) }
 
   before do
-    user.save
     sign_in user
   end
 
