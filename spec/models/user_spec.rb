@@ -12,4 +12,9 @@ RSpec.describe User, type: :model do
   it 'should find user by email' do
     expect(User.find_by_email('emmy@gmail.com')).to eq(@user)
   end
+
+  it 'should update user' do
+    @user.update(email: 'emma@gmail.com')
+    expect(User.find_by_email('emma@gmail.com')).to eq(@user)
+  end
 end
