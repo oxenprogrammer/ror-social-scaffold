@@ -17,4 +17,9 @@ RSpec.describe User, type: :model do
     @user.update(email: 'emma@gmail.com')
     expect(User.find_by_email('emma@gmail.com')).to eq(@user)
   end
+
+  it 'is not valid without an email' do
+    user = User.new(email: nil)
+    expect(user).to_not be_valid
+  end
 end
