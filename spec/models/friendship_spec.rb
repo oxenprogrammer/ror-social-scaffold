@@ -2,26 +2,33 @@ require 'rails_helper'
 
 RSpec.describe Friendship, type: :model do
   before(:all) do
+    User.create(id: 1, name: 'emmy', email: 'emmy@gmail.com', password: '123456', password_confirmation: '123456')
+    User.create(id: 2, name: 'emma', email: 'emma@gmail.com', password: '123456', password_confirmation: '123456')
     @friendship = Friendship.create(requestor_id: 1, requestee_id: 2)
+    @status = %i[pending accepted rejected]
   end
 
-  # it 'should have valid attributes' do
-  #   expect(@user).to be_valid
-  # end
+  it 'should have valid attributes' do
+    expect(@friendship).to be_valid
+  end
 
-  # it 'should find user by email' do
-  #   expect(User.find_by_email('emmy@gmail.com')).to eq(@user)
-  # end
+  it 'should update status to accepted' do
+    @friendship.update(status: 'accepted')
+    expect(Friendship.find_by_status('accepted')).to eq(@friendship)
+  end
 
-  # it 'should update user' do
-  #   @user.update(email: 'emma@gmail.com')
-  #   expect(User.find_by_email('emma@gmail.com')).to eq(@user)
-  # end
+  it 'should update status to reject' do
+    @friendship.update(status: 'rejected')
+    expect(Friendship.find_by_status('rejected')).to eq(@friendship)
+  end
 
-  # it 'is not valid without an email' do
-  #   user = User.new(email: nil)
-  #   expect(user).to_not be_valid
-  # end
+  describe 'status' do
+    it 'has the right index' do
+      @status.each_with_index do |item, index|
+        expect(described_class.statuses[item]).to eq index
+      end
+    end
+  end
 
   describe 'Associations' do
     it { should belong_to(:requestor).without_validating_presence }
