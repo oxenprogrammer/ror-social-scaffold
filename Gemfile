@@ -45,6 +45,7 @@ group :development, :test do
   gem 'capybara'
   gem 'database_cleaner'
   gem 'rspec-rails', '~> 5.0', '>= 5.0.1'
+  gem 'shoulda-matchers'
 end
 
 group :test do

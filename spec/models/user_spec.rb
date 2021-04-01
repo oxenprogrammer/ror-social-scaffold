@@ -22,4 +22,12 @@ RSpec.describe User, type: :model do
     user = User.new(email: nil)
     expect(user).to_not be_valid
   end
+
+  describe 'Associations' do
+    it { should have_many(:friendships).without_validating_presence }
+  end
+
+  describe 'Associations' do
+    it { should have_many(:inverse_friendships).without_validating_presence }
+  end
 end
