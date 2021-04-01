@@ -8,4 +8,8 @@ RSpec.describe User, type: :model do
   it 'should have valid attributes' do
     expect(@user).to be_valid
   end
+
+  it 'should find user by email' do
+    expect(User.find_by_email('emmy@gmail.com')).to eq(@user)
+  end
 end
