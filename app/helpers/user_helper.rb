@@ -31,4 +31,5 @@ module UserHelper
                 method: :delete
     end
   end
+  # rubocop:enable Style/GuardClause
 end
