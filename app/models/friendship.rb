@@ -18,4 +18,10 @@ class Friendship < ApplicationRecord
                  find_by(requestor_id: user.id, requestee_id: current_user.id, status: 'accepted')
     true unless friendship.nil?
   end
+
+  def self.both_sided_friendship(current_user, user)
+    find_by(requestor_id: current_user.id,
+            requestee_id: user.id) || Friendship.find_by(requestor_id: user.id,
+                                                         requestee_id: current_user.id)
+  end
 end
