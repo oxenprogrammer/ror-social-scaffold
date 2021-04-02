@@ -4,13 +4,21 @@ module UserHelper
     'You are friends' if friend?(current_user, user)
   end
 
+  def friend_post(current_user, user)
+    if friend?(current_user, user)
+      render @posts
+    else
+      render @other_posts
+    end
+  end
+
   def friendship_button(current_user, user)
     friendship = Friendship.find_by(requestor_id: current_user.id,
                                     requestee_id: user.id) || Friendship.find_by(requestor_id: user.id,
                                                                                  requestee_id: current_user.id)
     if friendship.nil? and current_user != user
       button_to 'Invite to friendship', user_friendships_path(user[:id]),
-                params: { friendship: { requestee_id: user.id } }
+                params: { friendship: { requestee_id: user.id } }, class: 'button_to'
     end
   end
 

@@ -4,4 +4,6 @@ class Comment < ApplicationRecord
 
   belongs_to :user
   belongs_to :post
+
+  scope :ordered_by_most_recent, -> { order(created_at: :desc) }
 end
