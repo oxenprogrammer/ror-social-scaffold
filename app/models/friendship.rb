@@ -4,4 +4,12 @@ class Friendship < ApplicationRecord
   enum status: %i[pending accepted rejected]
 
   validates_presence_of :requestor, :requestee
+
+  def self.requestee(current_user)
+    where(requestor_id: current_user, status: 'accepted').pluck(:requestee_id)
+  end
+
+  def self.requestor(current_user)
+    where(requestee_id: current_user, status: 'accepted').pluck(:requestor_id)
+  end
 end
