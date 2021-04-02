@@ -12,4 +12,10 @@ class Friendship < ApplicationRecord
   def self.requestor(current_user)
     where(requestee_id: current_user, status: 'accepted').pluck(:requestor_id)
   end
+
+  def self.friend?(current_user, user)
+    friendship = find_by(requestor_id: current_user.id, requestee_id: user.id, status: 'accepted') ||
+                 find_by(requestor_id: user.id, requestee_id: current_user.id, status: 'accepted')
+    true unless friendship.nil?
+  end
 end
