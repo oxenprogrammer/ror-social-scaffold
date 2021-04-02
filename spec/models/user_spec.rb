@@ -2,7 +2,7 @@ require 'rails_helper'
 
 RSpec.describe User, type: :model do
   before(:all) do
-    @user = User.create(name: 'emmy', email: 'emmy@gmail.com', password: '123456', password_confirmation: '123456')
+    @user = User.create(name: 'hannah', email: 'hannah@gmail.com', password: '123456', password_confirmation: '123456')
   end
 
   it 'should have valid attributes' do
@@ -10,12 +10,12 @@ RSpec.describe User, type: :model do
   end
 
   it 'should find user by email' do
-    expect(User.find_by_email('emmy@gmail.com')).to eq(@user)
+    expect(User.find_by_email('hannah@gmail.com')).to eq(@user)
   end
 
   it 'should update user' do
-    @user.update(email: 'emma@gmail.com')
-    expect(User.find_by_email('emma@gmail.com')).to eq(@user)
+    @user.update(email: 'han@gmail.com')
+    expect(User.find_by_email('han@gmail.com')).to eq(@user)
   end
 
   it 'is not valid without an email' do
