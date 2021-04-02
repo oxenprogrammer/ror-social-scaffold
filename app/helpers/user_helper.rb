@@ -21,7 +21,7 @@ module UserHelper
   end
 
   def friendship_update_button(current_user, user)
-    pending_request = Friendship.find_by(requestor_id: user.id, requestee_id: current_user.id, status: 'pending')
+    pending_request = Friendship.request_sent(current_user, user)
     if current_user != user and pending_request
       concat button_to 'Accept', update_friendship_path(current_user[:id], pending_request[:id]),
                        params: { friendship: { id: pending_request[:id] } },
@@ -31,11 +31,4 @@ module UserHelper
                 method: :delete
     end
   end
-
-  # def friend?(current_user, user)
-  #   friendship = Friendship.find_by(requestor_id: current_user.id, requestee_id: user.id, status: 'accepted') ||
-  #                Friendship.find_by(requestor_id: user.id, requestee_id: current_user.id, status: 'accepted')
-  #   true unless friendship.nil?
-  # end
-  # rubocop:enable Style/GuardClause
 end

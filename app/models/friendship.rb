@@ -24,4 +24,8 @@ class Friendship < ApplicationRecord
             requestee_id: user.id) || Friendship.find_by(requestor_id: user.id,
                                                          requestee_id: current_user.id)
   end
+
+  def self.request_sent(current_user, user)
+    find_by(requestor_id: user.id, requestee_id: current_user.id, status: 'pending')
+  end
 end
