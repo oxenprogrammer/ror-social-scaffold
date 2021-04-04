@@ -14,7 +14,7 @@ module UserHelper
 
   def friendship_button(current_user, user)
     friendship = Friendship.both_sided_friendship(current_user, user)
-    if friendship.nil? and current_user != user
+    if (friendship.nil? or friendship[:status] == 'rejected') and current_user != user
       button_to 'Invite to friendship', user_friendships_path(user[:id]),
                 params: { friendship: { requestee_id: user.id } }, class: 'button_to'
     end
