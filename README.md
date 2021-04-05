@@ -9,7 +9,7 @@
 
 ## Live Demo
 
-TBA
+Heroku deployment https://social-media-ror.herokuapp.com/users/sign_in
 
 
 ## Getting Started
