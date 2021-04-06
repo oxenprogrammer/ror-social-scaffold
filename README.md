@@ -9,7 +9,7 @@
 
 ## Live Demo
 
-TBA
+Heroku deployment https://social-media-ror.herokuapp.com/users/sign_in
 
 
 ## Getting Started
@@ -69,7 +69,13 @@ Open `http://localhost:3000/` in your browser.
 
 TBA
 
-## Authors
+## Contirbutor
+
+👤 **Emanuel Okello**
+
+- GitHub: [oxenprogrammer](https://github.com/oxenprogrammer)
+- Twitter: [@ox_emmy](https://twitter.com/ox_emmy)
+- LinkedIn: [Emanuel Okello](https://www.linkedin.com/in/emanuel-okello/)
 
 TBA
 
